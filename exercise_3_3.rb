@@ -32,6 +32,12 @@ class Document
         yield w
       end
     end
+
+    def method_missing(method_id, *args, &block)
+	if (method_id.to_s.match (/^replace_(.+)$/))
+		@title.gsub!($1, args[0])
+	end
+    end
 end
 
 
@@ -44,4 +50,6 @@ end
   
   puts total.words.to_s
   total.each_word {|w| puts w }
+  total.replace_Code("repo")
+  puts total.title
 
